@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Image;
 use App\Models\Article;
 use App\Models\Categorie;
-use Illuminate\Cache\RedisTagSet;
 use Illuminate\Http\Request;
+use Illuminate\Cache\RedisTagSet;
 use Illuminate\Validation\Rules\Unique;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\StoreArticleRequest;
 
 class ArticleController extends Controller
 {
@@ -17,6 +18,12 @@ class ArticleController extends Controller
      */
     public function index()
     {
+        $categories = Categorie::all();
+
+        return view('components.layout', [
+            'categories' => $categories,
+            'categoryId' => $categories->id
+        ]);
     }
 
     /**
@@ -33,7 +40,7 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreArticleRequest $request)
     {
         $imageId = uniqid();
 
@@ -104,7 +111,7 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Article $article, $id)
+    public function update(StoreArticleRequest $request, Article $article, $id)
     {
 
         $imageId = uniqid();
@@ -130,9 +137,7 @@ class ArticleController extends Controller
 
 
                 // Deleted previously categories selected
-                foreach ($allCategories as $categorie) {
-                    $current_article->categories()->detach($categorie->id);
-                }
+                $current_article->categories()->detach();
 
                 $categories = $request->categories;
 

@@ -12,6 +12,9 @@
 
     {{-- Import asset css interno --}}
     <link rel="stylesheet" href="/css/style.css">
+
+    {{-- Import asset css From bootswatch --}}
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
     
@@ -30,6 +33,14 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
+                <div class="dropdown-menu">
+                  @foreach ($categories as $category)
+                    <a class="dropdown-item" href="/homepage/article-category/{{ $category->id }}">{{ $category->name }}</a>
+                  @endforeach
+                </div>
               </li>
             </ul>
             @if (auth()->check())

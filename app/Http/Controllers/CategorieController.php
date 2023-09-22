@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Categorie;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,13 @@ class CategorieController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $categories = Categorie::find($id);
+        return view('categories.category-article', [
+            'articles' => $categories->articles,
+            'categoryName' => $categories->name
+        ]);
     }
 
     /**
@@ -34,9 +39,14 @@ class CategorieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Categorie $categorie)
+    public function show(Categorie $categorie, $id)
     {
-        //
+        $categories = Categorie::find($id);
+        
+        return view('categories.category-article', [
+            'categories' => $categories,
+            'categoryName' => $categories->name
+        ]);
     }
 
     /**

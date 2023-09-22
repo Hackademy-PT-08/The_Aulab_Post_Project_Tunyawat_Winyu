@@ -14,7 +14,11 @@
             margin-top: 10%;
             padding: 30px 40px 30px 40px;
             border-radius: 10px;
-    }
+        }
+        
+        .card{
+            margin-left: 15%;
+        }
     </style>
     
 <div class="container">
@@ -44,7 +48,7 @@
     </div>
 </div>
 <h3 class="text-center py-5">All publiched</h3>
-<div class="main-container py-5">
+<div class="container-fluid py-5">
     <div class="row">
         @foreach ($articles as $article)
             <div class="col-4">
@@ -52,9 +56,16 @@
                     <img src="{{ asset('storage/' . $article->image) }}" class="card-img-top" alt="{{ $article->title }}">
                     <div class="card-body">
                       <h5 class="card-title">{{ $article->title }}</h5>
+                      <p class="card-text">{{ $article->subtitle }}</p>
+                      <hr>
+                      <p class="card-text content">{{ $article->content }}</p>
+                      <span class="badge bg-info my-2">Author: {{ $article->user->name }}</span>
+                      <br>
+                      {{-- <span class="badge bg-info my-2">Category: {{ $article->categories->name ?? 'none'}}</span> --}}
+                      <br>
                       @if (auth()->check())
                           @if (auth()->user()->id == $article->user_id)
-                            <a class="btn btn-primary" href="/profile/edit-post/{{ $article->id }}">Edit</a>
+                            <a class="btn btn-primary my-2" href="/profile/edit-post/{{ $article->id }}">Edit</a>
                             <form action="/profile/delete-post/{{ $article->id }}" method="post">
                                 @csrf
                                 @method('DELETE')

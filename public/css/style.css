@@ -1,7 +1,5 @@
 
 
-/* Auth */
-
 .btn{
     display: flex;
     align-items: center;
@@ -14,4 +12,8 @@
     width: 160px; 
     height: 1.2em; 
     white-space: nowrap;
-  }
+}
+
+.card{
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.36);
+}

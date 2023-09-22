@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Image;
+use App\Models\Categorie;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Article extends Model
 {
@@ -12,7 +15,7 @@ class Article extends Model
     protected $fillable = [
         'title',
         'content',
-        'subtitle'
+        'subtitle',
     ];
 
     // One to many Relationship with User
