@@ -19,6 +19,11 @@
         .card{
             margin-left: 15%;
         }
+
+        img{
+            max-width: 300px;
+            max-height: 200px;
+        }
     </style>
     
 <div class="container">
@@ -47,26 +52,26 @@
        </div>
     </div>
 </div>
+@if (auth()->user()->is_writer)
 <h3 class="text-center py-5">All publiched</h3>
 <div class="container-fluid py-5">
     <div class="row">
-        @foreach ($articles as $article)
+        @foreach ($user_article as $user_article)
             <div class="col-4">
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('storage/' . $article->image) }}" class="card-img-top" alt="{{ $article->title }}">
+                    <img src="{{ Storage::url($user_article->image) }}" class="card-img-top" alt="{{ $user_article->title }}">
                     <div class="card-body">
-                      <h5 class="card-title">{{ $article->title }}</h5>
-                      <p class="card-text">{{ $article->subtitle }}</p>
+                      <h5 class="card-title">{{ $user_article->title }}</h5>
+                      <p class="card-text">{{ $user_article->subtitle }}</p>
                       <hr>
-                      <p class="card-text content">{{ $article->content }}</p>
-                      <span class="badge bg-info my-2">Author: {{ $article->user->name }}</span>
-                      <br>
-                      {{-- <span class="badge bg-info my-2">Category: {{ $article->categories->name ?? 'none'}}</span> --}}
-                      <br>
+                      <p class="card-text content">{{ $user_article->content }}</p>
+                      <hr>
+                      <p>Author: <a href="#" class="btn btn-outline-dark btn-sm my-1">{{ $user_article->user->name }}</a></p>
+                      <p>Category: <a href="/homepage/article-category/{{ $user_article->category->id }}" class="btn btn-outline-dark btn-sm my-1">{{ $user_article->category->name }}</a></p>
                       @if (auth()->check())
-                          @if (auth()->user()->id == $article->user_id)
-                            <a class="btn btn-primary my-2" href="/profile/edit-post/{{ $article->id }}">Edit</a>
-                            <form action="/profile/delete-post/{{ $article->id }}" method="post">
+                          @if (auth()->user()->id == $user_article->user_id)
+                            <a class="btn btn-primary my-2" href="/profile/edit-post/{{ $user_article->id }}">Edit</a>
+                            <form action="/profile/delete-post/{{ $user_article->id }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                     <button type="submit" class="btn btn-danger">DELETE</button>
@@ -79,4 +84,5 @@
         @endforeach
     </div>
 </div>
+@endif
 @endsection

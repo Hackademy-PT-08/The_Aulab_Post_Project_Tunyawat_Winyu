@@ -3,21 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use App\Models\Categorie;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CategorieController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    public function index()
     {
-        $categories = Categorie::find($id);
-        return view('categories.category-article', [
-            'articles' => $categories->articles,
-            'categoryName' => $categories->name
-        ]);
+        //
     }
 
     /**
@@ -39,20 +35,17 @@ class CategorieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Categorie $categorie, $id)
+    public function articles_by_category(Category $category)
     {
-        $categories = Categorie::find($id);
-        
-        return view('categories.category-article', [
-            'categories' => $categories,
-            'categoryName' => $categories->name
-        ]);
+        $articles = Article::where('category_id', $category->id)->where('is_accepted', true)->orderBy('created_at', 'desc')->get();
+
+        return view('categories.category-article', compact('articles', 'category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Categorie $categorie)
+    public function edit(Category $category)
     {
         //
     }
@@ -60,7 +53,7 @@ class CategorieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Categorie $categorie)
+    public function update(Request $request, Category $category)
     {
         //
     }
@@ -68,7 +61,7 @@ class CategorieController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Categorie $categorie)
+    public function destroy(Category $category)
     {
         //
     }

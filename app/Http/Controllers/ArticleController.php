@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Image;
 use App\Models\Article;
-use App\Models\Categorie;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Cache\RedisTagSet;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Unique;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\StoreArticleRequest;
@@ -18,23 +18,21 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $categories = Categorie::all();
+        $categories = Category::all();
 
         return view('components.layout', [
             'categories' => $categories,
             'categoryId' => $categories->id
         ]);
     }
+    
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $categories = Categorie::all();
-        return view('addPost.addPost', [
-            'categories' => $categories
-        ]);
+        return view('addPost.addPost');
     }
 
     /**
@@ -42,36 +40,18 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        $imageId = uniqid();
 
-        $article = new Article;
 
-        $article->title = $request->title;
-        $article->subtitle = $request->subtitle;
-        $article->content = $request->content;
-        $article->user_id = auth()->user()->id;
-         
-        if($request->file('image')){
-            $article->image = 'image-painting-' . $imageId . '.' . $request->file('image')->extension();
-            $article->imageId = $imageId;
-            $filename = 'image-painting-' . $imageId . '.' . $request->file('image')->extension();
-            $image = $request->file('image')->storeAs('public', $filename);
-        }
-        else{
-            $article->image = '';
-            $article->image_Id = '';
-        }
+        $article = Article::create([
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+            'content' => $request->content,
+            'image' => $request->file('image')->store('public/image'),
+            'user_id' => auth()->user()->id,
+            'category_id' => $request->category_id
+        ]);
 
         $article->save();
-
-        $categories = $request->categories;
-
-        $current_article = Article::find($article->id);
-        
-        foreach($categories as $categorie){
-
-            $current_article->categories()->attach($categorie);
-        }
             
         Alert::success('Congrats', 'Your post has been uploaded successfully');
 
@@ -95,7 +75,7 @@ class ArticleController extends Controller
     {
         $article = Article::find($id);
 
-        $categories = Categorie::all();
+        $categories = Category::all();
         
         if(auth()->user()->id == $article->user_id){
             return view('editPost.edit', [
@@ -111,10 +91,10 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreArticleRequest $request, Article $article, $id)
+    public function update(Request $request, Article $article, $id)
     {
 
-        $imageId = uniqid();
+        $image_id = uniqid();
         $article = Article::find($id);
 
         if(auth()->user()->id == $article->user_id){
@@ -123,37 +103,19 @@ class ArticleController extends Controller
             $article->content = $request->content;
             $article->user_id = auth()->user()->id;
 
-            if($request->file('image')){
-                $article->image = 'image-painting-' . $imageId . '.' . $request->file('image')->extension();
-                $article->ImageId = $imageId;
-                $filename = 'image-painting-' . $imageId . '.' . $request->file('image')->extension();
-                $image = $request->file('image')->storeAs('public', $filename);
-            }
-
+            
             $article->save();
-
-                $current_article = Article::find($article->id);
-                $allCategories = Categorie::all();
-
-
-                // Deleted previously categories selected
-                $current_article->categories()->detach();
-
-                $categories = $request->categories;
-
-                // Add the another categories
-                foreach($categories as $categorie){
-
-                    $current_article->categories()->attach($categorie);
-                }
+            
+            if($request->file('image')){
+                $article->image = 'image-painting-' . $image_id . '.' . $request->file('image')->extension();
+                $filename = 'image-painting-' . $image_id . '.' . $request->file('image')->extension();
+                $image = $request->file('image')->storeAs('public/image', $filename);
+            }
+        }
 
             Alert::success('Congrats', 'Your post has been successfully edited');
 
             return redirect()->route('profile', $id);
-        }
-        else{
-            return redirect()->route('homepage');
-        }
     }
 
     /**

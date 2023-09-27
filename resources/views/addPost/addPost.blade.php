@@ -14,19 +14,7 @@
     }
     </style>
 
-
-    {{-- Error Message --}}
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <div class="container">
+    <div class="container mb-5">
         <div class="col-12">
             <form action="{{ route('addPost.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -35,15 +23,32 @@
                 </div>
                 <div class="mb-3">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" name="title" id="title" placeholder="Write here title of your article">
+                    <input type="text" class="form-control" name="title" id="title" placeholder="Write here title of your article" value="{{ old('title') }}">
+
+                    <span style="color: red;">
+                        @error('title')
+                            {{ $message }}
+                        @enderror
+                    </span>
                 </div>
                 <div class="mb-3">
                     <label for="subtitle">Subtitle</label>
-                    <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Write here sub title of your article">
+                    <input type="text" class="form-control" name="subtitle" id="subtitle" placeholder="Write here sub title of your article" value="{{ old('subtitle') }}">
+
+                    <span style="color: red;">
+                        @error('subtitle')
+                            {{ $message }}
+                        @enderror
+                    </span>
                 </div>
                 <div class="mb-3">
                     <label for="content">Content</label>
-                    <textarea class="form-control" name="content" id="content" rows="3" placeholder="Write here content of your article"></textarea>
+                    <textarea class="form-control" name="content" id="content" rows="3" placeholder="Write here content of your article">{{ old('content') }}</textarea>
+                    <span style="color: red;">
+                        @error('content')
+                            {{ $message }}
+                        @enderror
+                    </span>
                 </div>
                 <div class="mb-3">
                     <label for="image">Image</label>
@@ -51,11 +56,16 @@
                 </div>
                 <div class="mb-3">
                     <label for="categories">Categories</label>
-                    <select class="form-select" name="categories[]" id="categories" multiple>
+                    <select class="form-select" name="category_id" id="categories">
                         @foreach ($categories as $categorie)
                             <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
                         @endforeach
                       </select>
+                      <span style="color: red;">
+                        @error('categories')
+                            {{ $message }}
+                        @enderror
+                    </span>
                 </div>
                 <div class="mb-3">
                     <div class="btn">

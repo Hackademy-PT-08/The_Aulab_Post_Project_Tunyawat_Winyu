@@ -50,14 +50,6 @@
                     <input type="file" name="image" id="image">
                 </div>
                 <div class="mb-3">
-                    <label for="categories">Categories</label>
-                    <select class="form-select" name="categories[]" id="categories">
-                        @foreach ($categories as $categorie)
-                            <option value="{{ $categorie->id }}"  {{ ($article->categories->contains($categorie->id)) ? 'selected' : '' }}>{{ $categorie->name }}</option>
-                        @endforeach
-                      </select>
-                </div>
-                <div class="mb-3">
                     <div class="btn">
                         <button type="submit" class="btn btn-primary">Update</button>
                     </div>

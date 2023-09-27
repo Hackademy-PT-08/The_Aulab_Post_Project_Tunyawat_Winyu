@@ -6,16 +6,17 @@ use App\Models\Article;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Image extends Model
+class Category extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'image',
-        'image_id'
+        'name'
     ];
 
     public function articles(){
-        return $this->belongsToMany(Article::class);
+
+        return $this->hasMany(Article::class);
+
     }
 }

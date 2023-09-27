@@ -3,34 +3,44 @@
 namespace App\Models;
 
 use App\Models\User;
-use App\Models\Image;
-use App\Models\Categorie;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 
 class Article extends Model
 {
     use HasFactory;
 
+    // use Searchable;
+    
+
     protected $fillable = [
         'title',
-        'content',
         'subtitle',
+        'content',
+        'image',
+        'user_id',
+        'category_id'
     ];
 
-    // One to many Relationship with User
-        public function user(){
-            return $this->belongsTo(User::class);
-        }
 
-    // Many to many relationship with Images
-        public function images(){
-            return $this->belongsToMany(Image::class);
-        }
+    public function user(){
         
-    // Many to many relationship with Categories
-        public function categories(){
-            return $this->belongsToMany(Categorie::class);
-        }
+        return $this->belongsTo(User::class);
 
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+
+    // public function toSearchableArray()
+    // {
+    //     return [
+    //         'id' => $this->id,
+    //         'title' => $this->title,
+    //         'content' => $this->content,
+    //     ];
+    // }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Image;
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 
@@ -19,14 +20,17 @@ class ProfileController extends Controller
     }
 
 
-    public function articles(){
+    public function articles(Category $category){
 
-        $current_user_id = auth()->user()->id;
-        $user_article = User::find($current_user_id)->articles;
+        $current_useId = auth()->user()->id;
+        $user_article = User::find($current_useId)->articles;
 
-        return view('users.profile', [
-            'articles' => $user_article,
-        ]); 
+        return view('users.profile', compact('user_article', 'category')); 
+    }
+
+    public function editInfoUser(){
+
+        return view('users.edit-info');
     }
 
     /**

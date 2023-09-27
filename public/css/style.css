@@ -1,6 +1,7 @@
-
-
-.btn{
+body{
+    background-color: black;
+}
+.button{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,3 +18,35 @@
 .card{
     box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.36);
 }
+
+.nav{
+    background-color: rgb(255, 199, 56);
+}
+
+h1, h3{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+}
+
+li, a{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+
+.line{
+    background-color: black;
+    position: absolute;
+    width: 50px;
+    height: 2px;
+    margin-left: 6px;
+}
+
+footer{
+    background-color: rgb(255, 199, 56);
+    padding: 1px;
+    position: absolute;
+    right: 0;
+    left: 0;
+}
+
+
