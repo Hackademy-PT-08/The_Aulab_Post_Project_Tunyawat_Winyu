@@ -52,7 +52,7 @@
        </div>
     </div>
 </div>
-@if (auth()->user()->is_writer)
+@if (auth()->user()->is_writer && auth()->user()->is_admin && auth()->user()->is_revisor)
 <h3 class="text-center py-5">All publiched</h3>
 <div class="container-fluid py-5">
     <div class="row">
@@ -70,15 +70,17 @@
                       <p>Category: <a href="/homepage/article-category/{{ $user_article->category->id }}" class="btn btn-outline-dark btn-sm my-1">{{ $user_article->category->name }}</a></p>
                       @if (auth()->check())
                           @if (auth()->user()->id == $user_article->user_id)
-                            <a class="btn btn-primary my-2" href="/profile/edit-post/{{ $user_article->id }}">Edit</a>
-                            <form action="/profile/delete-post/{{ $user_article->id }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">DELETE</button>
-                            </form>
+                            @if (auth()->user()->is_admin)
+                                <a class="btn btn-primary my-2" href="/profile/edit-post/{{ $user_article->id }}">Edit</a>
+                                <form action="/profile/delete-post/{{ $user_article->id }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">DELETE</button>
+                                </form>
+                            @endif
                           @endif
                       @endif
-                    </div>
+                </div>
                 </div>
             </div>
         @endforeach

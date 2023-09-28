@@ -55,7 +55,7 @@
                     <input type="file" name="image" id="image">
                 </div>
                 <div class="mb-3">
-                    <label for="categories">Categories</label>
+                    <label for="categories">Category</label>
                     <select class="form-select" name="category_id" id="categories">
                         @foreach ($categories as $categorie)
                             <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
@@ -63,6 +63,19 @@
                       </select>
                       <span style="color: red;">
                         @error('categories')
+                            {{ $message }}
+                        @enderror
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label for="tags">Tag</label>
+                    <select class="form-select" name="tags[]" id="tags" multiple>
+                        @foreach ($tags as $tag)
+                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                        @endforeach
+                      </select>
+                      <span style="color: red;">
+                        @error('tags')
                             {{ $message }}
                         @enderror
                     </span>

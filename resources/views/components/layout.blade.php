@@ -123,8 +123,8 @@
                 </li>
               </ul>
             @endif
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" wire:model="search" name="search" type="text" placeholder="Search">
+            <form action="{{ route('article.search') }}" method="get" class="d-flex" role="search">
+              <input class="form-control me-2" name="key" type="text" placeholder="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
           </div>

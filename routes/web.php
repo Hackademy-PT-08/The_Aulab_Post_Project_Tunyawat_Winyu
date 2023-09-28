@@ -27,7 +27,7 @@ use App\Livewire\ArticleSearch;
 */
 
 // Route Homepage
-Route::get('/', [FrontendController::class, 'homeArticles'])->name('homepage');
+Route::get('/', [HomepageController::class, 'homeArticles'])->name('homepage');
 
 // Route item order selector
 Route::get('/homepage/latest-article', [FrontendController::class, 'latest'])->name('article.latest');
@@ -79,5 +79,5 @@ Route::middleware('revisor')->group(function(){
     Route::get('/revisor/article/{article}/reject', [RevisorController::class, 'articleReject'])->name('revisor.articleReject');
 });
 
-// // Route searchBar
-// Route::get('/article/search', [ArticleSearch::class, 'render'])->name('article.search');
+// Route searchBar
+Route::get('/article/search', [HomepageController::class, 'searchArticle'])->name('article.search');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -18,12 +19,12 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        // $categories = Category::all();
 
-        return view('components.layout', [
-            'categories' => $categories,
-            'categoryId' => $categories->id
-        ]);
+        // return view('components.layout', [
+        //     'categories' => $categories,
+        //     'categoryId' => $categories->id
+        // ]);
     }
     
 
@@ -31,8 +32,9 @@ class ArticleController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('addPost.addPost');
+    {   
+        $tags = Tag::all();
+        return view('addPost.addPost',compact('tags'));
     }
 
     /**
@@ -50,6 +52,12 @@ class ArticleController extends Controller
             'user_id' => auth()->user()->id,
             'category_id' => $request->category_id
         ]);
+
+        $tags = $request->tags;
+
+        foreach($tags as $tag){
+            $tags->tags()->attach($tag);
+        }
 
         $article->save();
             

@@ -12,7 +12,7 @@ class Article extends Model
 {
     use HasFactory;
 
-    // use Searchable;
+    use Searchable;
     
 
     protected $fillable = [
@@ -35,12 +35,18 @@ class Article extends Model
         return $this->belongsTo(Category::class);
     }
 
-    // public function toSearchableArray()
-    // {
-    //     return [
-    //         'id' => $this->id,
-    //         'title' => $this->title,
-    //         'content' => $this->content,
-    //     ];
-    // }
+    public function tags(){
+
+        return $this->belongsToMany(Article::class);
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'subtitle' => $this->subtitle,
+            'category_id' => $this->category_id
+        ];
+    }
 }

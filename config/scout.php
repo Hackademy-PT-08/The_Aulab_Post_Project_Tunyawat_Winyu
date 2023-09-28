@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'driver' => env('SCOUT_DRIVER', 'tntsearch'),
+    'driver' => env(key:'SCOUT_DRIVER', default:'tntsearch'),
 
     /*
     |--------------------------------------------------------------------------

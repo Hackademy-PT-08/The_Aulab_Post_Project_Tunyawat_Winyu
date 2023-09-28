@@ -28,8 +28,7 @@
                     </div>
                 </div>
             </div>
-            @livewire('article-search')
-            {{-- <div class="row">
+            <div class="row">
                 @foreach ($lastArticles as $lastArticle)
                     <div class="col-4 py-4">
                         <div class="card" style="width: 18rem;">
@@ -48,7 +47,7 @@
                         </div>
                     </div> 
                 @endforeach
-            </div> --}}
+            </div>
         </div>
     </div>
 @endsection

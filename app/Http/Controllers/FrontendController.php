@@ -15,13 +15,6 @@ class FrontendController extends Controller
 
         return view('details-articles.details', compact('article_detail', 'category'));
     }
-    
-    public function homeArticles(Category $category){
-        
-        // $lastArticles = Article::where('is_accepted', true)->orderBy('created_at', 'desc')->take(6)->get();
-
-        return view('home.homepage');
-    }
 
     public function latest(Category $category)
     {
@@ -32,7 +25,7 @@ class FrontendController extends Controller
 
     public function oldest(Category $category){
 
-        $lastArticles = Article::where('is_accepted', true)->orderBy('created_at', 'desc')->take(6)->get();
+        $lastArticles = Article::where('is_accepted', true)->orderBy('created_at', 'asc')->take(6)->get();
 
         return view('home.homepage', compact('lastArticles', 'category'));
     }
@@ -40,4 +33,7 @@ class FrontendController extends Controller
     public function workWithUs(){
         return view('workWithUs.work-with-us');
     }
+
+    
+    
 }
