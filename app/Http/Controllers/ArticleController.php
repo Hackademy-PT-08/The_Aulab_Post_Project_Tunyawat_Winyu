@@ -53,11 +53,11 @@ class ArticleController extends Controller
             'category_id' => $request->category_id
         ]);
 
-        // $tags = $request->tags;
+        $tags = $request->tags;
 
-        // foreach($tags as $tag){
-        //     $article->tags()->attach($tag);
-        // }
+        foreach($tags as $tag){
+            $article->tags()->attach($tag);
+        }
 
         $article->save();
             
@@ -85,13 +85,13 @@ class ArticleController extends Controller
 
         $categories = Category::all();
 
-        // $tags = Tag::all();
+        $tags = Tag::all();
         
         if(auth()->user()->id == $article->user_id){
             return view('editPost.edit', [
                 'article' => $article,
                 'categories'=> $categories,
-                // 'tags' => $tags
+                'tags' => $tags
             ]); 
         }
         else{
@@ -123,6 +123,18 @@ class ArticleController extends Controller
                 $image = $request->file('image')->storeAs('public/image', $filename);
             }
         }
+
+        
+        $article->tags()->detach();
+
+        $tags = $request->tags;
+
+        foreach($tags as $tag){
+            
+            $article->tags()->attach($tag);
+        }
+
+
 
             Alert::success('Congrats', 'Your post has been successfully edited');
 

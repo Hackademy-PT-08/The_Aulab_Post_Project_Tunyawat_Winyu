@@ -31,10 +31,6 @@ class StoreArticleRequest extends FormRequest
             'subtitle' => 'required',
             'content' => 'required',
             'category_id' => 'required',
-
-            // 'email' => 'required|email|unique:userlogins',
-            // 'name' => 'required',
-            // 'password' => 'required'
         ];
     }
 
@@ -45,10 +41,6 @@ class StoreArticleRequest extends FormRequest
             'subtitle.required' => 'subtitle is required',
             'content.required' => 'content is required',
             'category_id.required' => 'category is required',
-
-            // 'email.required' => 'email is required',
-            // 'password.required' => 'password is required',
-            // 'name.required' => 'name is required'
         ];
     }
 }

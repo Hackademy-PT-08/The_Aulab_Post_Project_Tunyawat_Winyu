@@ -36,7 +36,7 @@ class Article extends Model
 
     public function tags(){
 
-        return $this->belongsToMany(Article::class);
+        return $this->belongsToMany(Tag::class);
     }
 
     public function toSearchableArray()
