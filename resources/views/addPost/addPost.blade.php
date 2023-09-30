@@ -14,6 +14,13 @@
     }
     </style>
 
+    @if($errors)
+    @foreach ($errors->all() as $error)
+        <div>{{ $error }}</div>
+    @endforeach
+    @endif
+
+
     <div class="container mb-5">
         <div class="col-12">
             <form action="{{ route('addPost.store') }}" method="post" enctype="multipart/form-data">
@@ -63,19 +70,6 @@
                       </select>
                       <span style="color: red;">
                         @error('categories')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                </div>
-                <div class="mb-3">
-                    <label for="tags">Tag</label>
-                    <select class="form-select" name="tags[]" id="tags" multiple>
-                        @foreach ($tags as $tag)
-                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
-                        @endforeach
-                      </select>
-                      <span style="color: red;">
-                        @error('tags')
                             {{ $message }}
                         @enderror
                     </span>

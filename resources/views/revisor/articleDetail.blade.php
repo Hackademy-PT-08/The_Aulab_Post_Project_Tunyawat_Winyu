@@ -1,4 +1,4 @@
-@extends('components.layout')
+@extends('components.layout-revisor')
 
 @section('content')
 

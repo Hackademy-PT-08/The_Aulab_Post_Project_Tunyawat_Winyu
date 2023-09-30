@@ -25,7 +25,7 @@
         </div>
     @endif
 
-    <div class="container">
+    <div class="container mb-5">
         <div class="col-12">
             <form action="/profile/edit-post/{{ $article->id }}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -49,6 +49,23 @@
                     <label for="image">Image</label>
                     <input type="file" name="image" id="image">
                 </div>
+                {{-- <div class="mb-3">
+                    <label for="categories" class="form-label">Catogory</label>
+                    <select class="form-select" id="categories" name="categories[]" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" {{ ($painting->categories->contains($category->id)) ? 'selected' : '' }}>{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div> --}}
+                {{-- <div class="mb-3">
+                    <label for="tags">Tag</label>
+                    <select class="form-select" name="tags[]" id="tags" multiple>
+                        @foreach ($tags as $tag)
+                            <option value="{{ $tag->id }} {{ ($article->tags->contains($tag)) ? 'selected' : '' }}">{{ $tag->name }}</option>
+                        @endforeach
+                      </select>
+                </div> --}}
                 <div class="mb-3">
                     <div class="btn">
                         <button type="submit" class="btn btn-primary">Update</button>

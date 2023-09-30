@@ -53,11 +53,11 @@ class ArticleController extends Controller
             'category_id' => $request->category_id
         ]);
 
-        $tags = $request->tags;
+        // $tags = $request->tags;
 
-        foreach($tags as $tag){
-            $tags->tags()->attach($tag);
-        }
+        // foreach($tags as $tag){
+        //     $article->tags()->attach($tag);
+        // }
 
         $article->save();
             
@@ -84,11 +84,14 @@ class ArticleController extends Controller
         $article = Article::find($id);
 
         $categories = Category::all();
+
+        // $tags = Tag::all();
         
         if(auth()->user()->id == $article->user_id){
             return view('editPost.edit', [
                 'article' => $article,
-                'categories'=> $categories
+                'categories'=> $categories,
+                // 'tags' => $tags
             ]); 
         }
         else{

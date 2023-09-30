@@ -47,4 +47,12 @@ class User extends Authenticatable
     public function articles(){
         return $this->hasMany(Article::class);
     }
+
+    public function roles(){
+        return $this->hasMany(Role::class);
+    }
+
+    public function toBeSeeCount(){
+        return User::where('is_admin', 'is_revisor', 'is_writer', null)->count();
+    }
 }

@@ -19,7 +19,7 @@
     {{-- Import font Googlefonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&family=Poppins:wght@300;400&family=Ubuntu:wght@300;400;500&family=Young+Serif&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&family=Poppins:wght@300;400&family=Ubuntu:wght@300;400;500&display=swap" rel="stylesheet">
 
     {{-- Import Font awesome cdn --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -59,15 +59,11 @@
       margin-top: 15px;
     }
 
-    .logo{
-      font-family: 'Young Serif', serif;
-    }
-
   </style>
     {{-- Navbar --}}
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid nav py-3 px-4">
-          <h2 class="navbar-brand logo" href="#">TAP</h2>
+          <h2 class="navbar-brand" href="#">Navbar</h2>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -76,9 +72,9 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{{ route('homepage') }}">Home</a>
               </li>
-              {{-- <li class="nav-item">
+              <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
-              </li> --}}
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('workWithUs') }}">work with us</a>
               </li>
@@ -96,38 +92,11 @@
                 <li class="nav-item mx-3">
                   <a class="nav-link" href="{{ route('profile') }}" ><i class="fa-solid fa-user fa-xl mx-3"></i>Profile</a>
                 </li>
-                @if (auth()->user()->is_admin)
-                  <li class="nav-item dropdown">
-                    <a class="dropdown-toggle px-3 " data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-table fa-xl mx-3"></i>Dashboard</a>
-                    <div class="dropdown-menu px-4 py-4">
-                      <a class="dropdown-item" href="{{ route('admin.candidate-request') }}">Candidate staff
-                      {{-- <span class="position-absolute top-0 start-100 traslate-middle badge-rouded-pill badge-succes">
-                        {{ App\Models\User::toBeSeeCount() }}
-                        <span class="visually-hidden">unread message</span>
-                      </span> --}}
-                      </a>
-                      {{-- <a class="dropdown-item" href="{{ route('admin.all-staff') }}">Staff</a> --}}
-                      <a class="dropdown-item" href="{{ route('admin.all-article') }}">Articles</a>
-                      <a class="dropdown-item" href="{{ route('admin.tag') }}">Tags</a>
-                      <a class="dropdown-item" href="{{ route('admin.category') }}">Category</a>
-                    </div>
-                  </li>
-                @endif
-                @if (auth()->user()->is_writer)
-                  <li class="nav-item mx-3">
-                    <a class="nav-link" href="{{ route('addPost.create') }}"><i class="fa-regular fa-pen-to-square fa-xl mx-2 fa-bounce"></i>Add Post</a>
-                  </li>
-                @endif
                 @if (auth()->user()->is_revisor)
                   <li class="nav-item mx-3">
                     <a class="nav-link" href="{{ route('revisor.dashboard') }}"><i class="fa-regular fa-eye fa-bounce fa-xl mx-3"></i>Review</a>
                   </li>
                 @endif
-                {{-- @if (!auth()->user()->is_admin || auth()->user()->is_writer || auth()->user()->is_revisor)
-                  <li class="nav-item mx-3">
-                    <a class="nav-link" href="{{ route('addPost.create') }}"><i class="fa-regular fa-pen-to-square fa-xl mx-2 fa-bounce"></i>Add Post</a>
-                  </li>
-                @endif --}}
                 <form action="/logout" method="post">
                   @csrf
                     <button type="submit" class="btn btn-dark mx-3" style="font-family: 'Poppins', sans-serif;">Logout</button>

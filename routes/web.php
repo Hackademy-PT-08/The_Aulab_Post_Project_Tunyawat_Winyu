@@ -58,10 +58,20 @@ Route::post('/homepage/work-with-us/store', [ApplicationFormController::class, '
 
 // Route only for Admin
 Route::middleware('admin')->group(function(){
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/dashboard/candidate-request', [AdminController::class, 'candidate_staff'])->name('admin.candidate-request');
+    Route::get('/admin/dashboard/all-staff', [AdminController::class, 'staff'])->name('admin.all-staff');
+    Route::get('/admin/dashboard/tag', [AdminController::class, 'tags'])->name('admin.tag');
+    Route::get('/admin/dashboard/categories', [AdminController::class, 'categories'])->name('admin.category');
+    Route::get('/admin/dashboard/all-articles', [AdminController::class, 'allArticle'])->name('admin.all-article');
     Route::get('/admin/{user}/set-admin', [AdminController::class, 'makeUserAdmin'])->name('makeUserAdmin');
     Route::get('/admin/{user}/set-revisor', [AdminController::class, 'makeUserRevisor'])->name('makeUserRevisor');
     Route::get('/admin/{user}/set-writer', [AdminController::class, 'makeUserWriter'])->name('makeUserWriter');
+    // admin CRUD tag
+    Route::post('/admin/{tag}/tags', [AdminController::class, 'tags_edit'])->name('admin.tag.edit');
+    Route::delete('/admin/{tag}/tags', [AdminController::class, 'tags_delete'])->name('admin.tag.delete');
+    // admin CRUD category
+    Route::post('/admin/{category}/categories', [AdminController::class, 'category_edit'])->name('admin.category.edit');
+    Route::delete('/admin/{category}/categories', [AdminController::class, 'category_delete'])->name('admin.category.delete');
 });
 
 // Route only for Writer

@@ -10,7 +10,7 @@ class HomepageController extends Controller
 {
     public function homeArticles(Category $category, Request $request){
         
-        $lastArticles = Article::where('is_accepted', true)->orderBy('created_at', 'desc')->take(1)->get();
+        $lastArticles = Article::where('is_accepted', true)->orderBy('created_at', 'desc')->take(6)->get();
 
         return view('home.homepage', compact('lastArticles', 'category'));
     }

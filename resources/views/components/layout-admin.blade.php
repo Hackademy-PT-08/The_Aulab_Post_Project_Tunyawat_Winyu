@@ -58,7 +58,7 @@
     i{
       margin-top: 15px;
     }
-
+    
     .logo{
       font-family: 'Young Serif', serif;
     }
@@ -76,9 +76,9 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{{ route('homepage') }}">Home</a>
               </li>
-              {{-- <li class="nav-item">
+              <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
-              </li> --}}
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('workWithUs') }}">work with us</a>
               </li>
@@ -113,21 +113,6 @@
                     </div>
                   </li>
                 @endif
-                @if (auth()->user()->is_writer)
-                  <li class="nav-item mx-3">
-                    <a class="nav-link" href="{{ route('addPost.create') }}"><i class="fa-regular fa-pen-to-square fa-xl mx-2 fa-bounce"></i>Add Post</a>
-                  </li>
-                @endif
-                @if (auth()->user()->is_revisor)
-                  <li class="nav-item mx-3">
-                    <a class="nav-link" href="{{ route('revisor.dashboard') }}"><i class="fa-regular fa-eye fa-bounce fa-xl mx-3"></i>Review</a>
-                  </li>
-                @endif
-                {{-- @if (!auth()->user()->is_admin || auth()->user()->is_writer || auth()->user()->is_revisor)
-                  <li class="nav-item mx-3">
-                    <a class="nav-link" href="{{ route('addPost.create') }}"><i class="fa-regular fa-pen-to-square fa-xl mx-2 fa-bounce"></i>Add Post</a>
-                  </li>
-                @endif --}}
                 <form action="/logout" method="post">
                   @csrf
                     <button type="submit" class="btn btn-dark mx-3" style="font-family: 'Poppins', sans-serif;">Logout</button>

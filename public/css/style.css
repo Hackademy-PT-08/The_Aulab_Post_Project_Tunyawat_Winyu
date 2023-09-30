@@ -1,6 +1,19 @@
 body{
     background-color: black;
 }
+/* Dropdown Menu */
+
+.dropdown-menu{
+    animation: .5s slideUp;
+}
+@keyframes slideUp{
+    from{
+        transform: translateY(10%);
+    }
+    to{
+        transform: translateY(0%);
+    }
+}
 .button{
     display: flex;
     align-items: center;
@@ -48,5 +61,7 @@ footer{
     right: 0;
     left: 0;
 }
+
+
 
 

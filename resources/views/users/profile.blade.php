@@ -11,7 +11,7 @@
             justify-content: center;
             align-items: center;
             box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.36);
-            margin-top: 10%;
+            margin-top: 8%;
             padding: 30px 40px 30px 40px;
             border-radius: 10px;
         }
@@ -26,7 +26,7 @@
         }
     </style>
     
-<div class="container">
+<div class="container mb-5">
     <div class="col-12">
        <div class="form-group">
         <div class="mb-3">
@@ -52,32 +52,30 @@
        </div>
     </div>
 </div>
-@if (auth()->user()->is_writer && auth()->user()->is_admin && auth()->user()->is_revisor)
+@if (auth()->user()->is_writer)
 <h3 class="text-center py-5">All publiched</h3>
 <div class="container-fluid py-5">
     <div class="row">
-        @foreach ($user_article as $user_article)
+        @foreach ($user_article as $article)
             <div class="col-4">
-                <div class="card" style="width: 18rem;">
-                    <img src="{{ Storage::url($user_article->image) }}" class="card-img-top" alt="{{ $user_article->title }}">
+                <div class="card" mb-5 style="width: 18rem;">
+                    <img src="{{ Storage::url($article->image) }}" class="card-img-top" alt="{{ $article->title }}">
                     <div class="card-body">
-                      <h5 class="card-title">{{ $user_article->title }}</h5>
-                      <p class="card-text">{{ $user_article->subtitle }}</p>
+                      <h5 class="card-title">{{ $article->title }}</h5>
+                      <p class="card-text">{{ $article->subtitle }}</p>
                       <hr>
-                      <p class="card-text content">{{ $user_article->content }}</p>
+                      <p class="card-text content">{{ $article->content }}</p>
                       <hr>
-                      <p>Author: <a href="#" class="btn btn-outline-dark btn-sm my-1">{{ $user_article->user->name }}</a></p>
-                      <p>Category: <a href="/homepage/article-category/{{ $user_article->category->id }}" class="btn btn-outline-dark btn-sm my-1">{{ $user_article->category->name }}</a></p>
+                      <p>Author: <a href="#" class="btn btn-outline-dark btn-sm my-1">{{ $article->user->name }}</a></p>
+                      <p>Category: <a href="/homepage/article-category/{{ $article->category->id }}" class="btn btn-outline-dark btn-sm my-1">{{ $article->category->name }}</a></p>
                       @if (auth()->check())
-                          @if (auth()->user()->id == $user_article->user_id)
-                            @if (auth()->user()->is_admin)
-                                <a class="btn btn-primary my-2" href="/profile/edit-post/{{ $user_article->id }}">Edit</a>
-                                <form action="/profile/delete-post/{{ $user_article->id }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">DELETE</button>
-                                </form>
-                            @endif
+                          @if (auth()->user()->id == $article->user_id)
+                            <a class="btn btn-primary my-2" href="/profile/edit-post/{{ $article->id }}">Edit</a>
+                            <form action="/profile/delete-post/{{ $article->id }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">DELETE</button>
+                            </form>
                           @endif
                       @endif
                 </div>
